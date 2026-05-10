@@ -1,0 +1,265 @@
+/* ============================================================
+   BUDGET TRACKER — Traveloop 2026
+   ============================================================ */
+
+.page {
+  max-width: var(--max-width-lg);
+  margin: 0 auto;
+  padding: var(--space-8) var(--content-padding-x) var(--space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  animation: fadeInUp var(--duration-slow) var(--ease-out) both;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.header h1 { font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl)); margin-bottom: 4px; }
+.header p  { color: var(--color-text-secondary); margin: 0; font-size: var(--text-sm); }
+
+/* ── SUMMARY CARDS ───────────────────────────────────────── */
+.summaryRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+@media (max-width: 500px) { .summaryRow { grid-template-columns: 1fr; } }
+
+.summaryCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summaryLabel {
+  font-size: 11px;
+  font-weight: var(--font-extrabold);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-tertiary);
+}
+
+.summaryValue {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: var(--font-extrabold);
+  line-height: 1;
+}
+
+/* ── PROGRESS CARD ───────────────────────────────────────── */
+.progressCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-secondary);
+}
+
+.overBudgetTag {
+  background: var(--color-coral-soft);
+  color: var(--color-coral);
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-extrabold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressBar {
+  height: 12px;
+  background: var(--color-border-medium);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s var(--ease-smooth);
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+}
+
+/* ── SECTION ─────────────────────────────────────────────── */
+.section {}
+.sectionTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-5);
+}
+
+/* ── CATEGORY GRID ───────────────────────────────────────── */
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+}
+
+.catCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.catCard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.catIcon {
+  width: 36px; height: 36px;
+  background: var(--color-ocean-light);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-ocean);
+}
+.catName { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--color-text-secondary); }
+.catAmount { font-size: var(--text-xl); font-weight: var(--font-extrabold); color: var(--color-ink); }
+.catBar {
+  height: 4px; background: var(--color-border-medium); border-radius: var(--radius-full); overflow: hidden;
+}
+
+/* ── FORM CARD ───────────────────────────────────────────── */
+.formCard {
+  background: var(--color-surf);
+  border: 1px solid var(--color-border-ocean);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  animation: fadeInUp 0.25s var(--ease-out) both;
+}
+.formTitle { font-size: var(--text-xl); font-weight: var(--font-bold); margin-bottom: var(--space-5); }
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+.formRow { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+@media (min-width: 640px) { .formRow { grid-template-columns: 2fr 1fr 1fr; } }
+
+.formGroup { display: flex; flex-direction: column; gap: var(--space-2); }
+.label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--color-ink); }
+.input {
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  background: var(--color-white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--color-ink);
+}
+.input:focus { border-color: var(--color-ocean); box-shadow: 0 0 0 3px rgba(0,100,148,0.1); }
+.formActions { display: flex; gap: var(--space-3); }
+
+/* ── EXPENSE LIST ────────────────────────────────────────── */
+.listHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+@media (min-width: 600px) { .listHeader { flex-direction: row; align-items: center; justify-content: space-between; } }
+
+.listControls { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+
+.searchWrap {
+  position: relative; display: flex; align-items: center;
+}
+.searchIcon {
+  position: absolute; left: 12px; color: var(--color-text-tertiary); pointer-events: none;
+}
+.searchInput {
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  padding: 8px 14px 8px 36px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  background: var(--color-white);
+  outline: none;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+.searchInput:focus { border-color: var(--color-ocean); }
+
+.catFilter {
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  background: var(--color-white);
+  outline: none;
+  cursor: pointer;
+  color: var(--color-ink);
+}
+
+.expenseList {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.expenseRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s;
+}
+.expenseRow:last-child { border-bottom: none; }
+.expenseRow:hover { background: var(--color-surf); }
+
+.expIcon {
+  width: 38px; height: 38px; flex-shrink: 0;
+  background: var(--color-ocean-light); border-radius: var(--radius-lg);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-ocean);
+}
+
+.expInfo { flex: 1; min-width: 0; }
+.expDesc { font-weight: var(--font-semibold); color: var(--color-ink); font-size: var(--text-base); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.expMeta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-tertiary); margin-top: 2px; }
+.expCat { font-weight: var(--font-semibold); }
+.expAmount { font-weight: var(--font-extrabold); font-size: var(--text-lg); color: var(--color-ink); white-space: nowrap; }
+.expDelete {
+  width: 32px; height: 32px; border-radius: var(--radius-md);
+  background: transparent; border: 1px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--color-text-tertiary); transition: var(--transition-fast); flex-shrink: 0;
+}
+.expDelete:hover { background: var(--color-coral-soft); color: var(--color-coral); border-color: rgba(239,68,68,0.2); }
+
+.emptyList { padding: var(--space-10); text-align: center; color: var(--color-text-tertiary); font-size: var(--text-sm); }

@@ -1,0 +1,153 @@
+/* ============================================================
+   BUTTON COMPONENT — Traveloop 2026
+   ============================================================ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-snug);
+  cursor: pointer;
+  transition: var(--transition-base);
+  outline: none;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-ocean);
+  outline-offset: 3px;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+/* ── VARIANTS ─────────────────────────────────────────────── */
+
+/* Primary — filled ocean */
+.primary {
+  background: var(--gradient-ocean);
+  color: var(--color-white);
+  box-shadow: 0 2px 12px rgba(0, 100, 148, 0.30);
+}
+.primary:hover {
+  background: linear-gradient(135deg, var(--color-ocean-dark) 0%, var(--color-ocean) 100%);
+  box-shadow: 0 4px 20px rgba(0, 100, 148, 0.40);
+  transform: translateY(-1px);
+}
+
+/* Secondary — filled ink */
+.secondary {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+.secondary:hover {
+  background: var(--color-ink-soft);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Outline — bordered ocean */
+.outline {
+  background: transparent;
+  border: 1.5px solid var(--color-ocean);
+  color: var(--color-ocean);
+}
+.outline:hover {
+  background: var(--color-ocean-light);
+  transform: translateY(-1px);
+}
+
+/* Ghost — no background */
+.ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+.ghost:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--color-ink);
+}
+
+/* White — for dark backgrounds */
+.white {
+  background: var(--color-white);
+  color: var(--color-ocean);
+  box-shadow: var(--shadow-md);
+}
+.white:hover {
+  background: var(--color-sand);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Danger */
+.danger {
+  background: var(--color-coral);
+  color: white;
+}
+.danger:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ── SIZES ────────────────────────────────────────────────── */
+.xs {
+  padding: 0.3rem 0.75rem;
+  font-size: var(--text-xs);
+  height: 28px;
+}
+
+.sm {
+  padding: 0.45rem 1rem;
+  font-size: var(--text-sm);
+  height: 36px;
+}
+
+.md {
+  padding: 0.625rem 1.375rem;
+  font-size: var(--text-base);
+  height: 44px;
+}
+
+.lg {
+  padding: 0.875rem 2rem;
+  font-size: var(--text-md);
+  height: 52px;
+}
+
+.xl {
+  padding: 1.125rem 2.5rem;
+  font-size: var(--text-lg);
+  height: 60px;
+}
+
+/* ── STATES ───────────────────────────────────────────────── */
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icon-only variant */
+.iconOnly {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+.iconOnly.sm {
+  width: 36px;
+  height: 36px;
+}
+.iconOnly.lg {
+  width: 52px;
+  height: 52px;
+}

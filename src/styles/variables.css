@@ -1,0 +1,226 @@
+/* ============================================================
+   TRAVELOOP 2026 — DESIGN SYSTEM V2
+   Premium Gen-Z travel planning platform
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+
+  /* ── COLOR PALETTE ──────────────────────────────────────── */
+
+  /* Brand Core */
+  --color-ink:          #0D1117;    /* deep text / headings */
+  --color-ink-soft:     #1C2333;    /* secondary headings */
+  --color-ocean:        #006494;    /* primary brand blue */
+  --color-ocean-dark:   #004F75;    /* hover / pressed state */
+  --color-ocean-light:  #E0F2FA;    /* light blue tint */
+  --color-sky:          #0496C7;    /* bright accent blue */
+
+  /* Sunset / Coral Accents (Gen-Z warmth) */
+  --color-sunset:       #FF6B6B;    /* energetic coral-red */
+  --color-sunset-soft:  #FFF0F0;    /* sunset background tint */
+  --color-peach:        #FF8C69;    /* warm peach accent */
+  --color-gold:         #F4A522;    /* golden highlight */
+  --color-gold-soft:    #FFF8E6;    /* gold tint */
+
+  /* Lavender (premium highlight) */
+  --color-lavender:     #8B7CF8;    /* soft purple accent */
+  --color-lavender-soft:#F3F0FF;    /* lavender tint */
+
+  /* Page Backgrounds */
+  --color-sand:         #F8F5F0;    /* warm cream page bg */
+  --color-surf:         #EEF7FC;    /* cool blue-tinted surface */
+  --color-white:        #FFFFFF;
+  --color-page:         #FAFAF9;    /* neutral off-white page */
+
+  /* Status Colors — Map Markers */
+  --color-jade:         #10B981;    /* visited — calm green */
+  --color-jade-soft:    #D1FAE5;    /* visited bg tint */
+  --color-amber:        #F59E0B;    /* in-progress — warm gold */
+  --color-amber-soft:   #FEF3C7;    /* in-progress bg tint */
+  --color-coral:        #EF4444;    /* wishlist — soft red */
+  --color-coral-soft:   #FEE2E2;    /* wishlist bg tint */
+
+  /* Text */
+  --color-text-primary:   #0D1117;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary:  #9CA3AF;
+  --color-text-inverse:   #FFFFFF;
+  --color-text-muted:     #B0B8C1;
+
+  /* Surfaces & Cards */
+  --color-surface:        #FFFFFF;
+  --color-surface-warm:   #FDFAF7;
+  --color-surface-glass:  rgba(255, 255, 255, 0.80);
+  --color-surface-glass-dark: rgba(13, 17, 23, 0.65);
+  --color-surface-blue:   rgba(0, 100, 148, 0.06);
+  --color-surface-footer: #0F1923;   /* dark footer bg */
+  --color-surface-footer-card: rgba(255,255,255,0.04);
+
+  /* Borders */
+  --color-border:         rgba(0, 0, 0, 0.07);
+  --color-border-medium:  rgba(0, 0, 0, 0.12);
+  --color-border-ocean:   rgba(0, 100, 148, 0.18);
+  --color-border-footer:  rgba(255, 255, 255, 0.08);
+
+  /* Map complementary tones */
+  --map-water:         #C8E6F5;
+  --map-land:          #F0EBE3;
+  --map-green:         #D4E9C0;
+
+  /* ── GRADIENTS ──────────────────────────────────────────── */
+  --gradient-hero:       linear-gradient(135deg, #003D5B 0%, #006494 50%, #0496C7 100%);
+  --gradient-ocean:      linear-gradient(135deg, #006494 0%, #0496C7 100%);
+  --gradient-warm:       linear-gradient(135deg, #F8F5F0 0%, #EEF7FC 100%);
+  --gradient-card:       linear-gradient(145deg, #ffffff 0%, #F0F8FF 100%);
+  --gradient-ink:        linear-gradient(135deg, #0D1117 0%, #1C2333 100%);
+  --gradient-jade:       linear-gradient(135deg, #059669 0%, #10B981 100%);
+  --gradient-amber:      linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+  --gradient-sunset:     linear-gradient(135deg, #FF6B6B 0%, #FF8C69 100%);
+  --gradient-lavender:   linear-gradient(135deg, #8B7CF8 0%, #A78BFA 100%);
+  --gradient-footer:     linear-gradient(180deg, #111827 0%, #0F1923 100%);
+  --gradient-hero-overlay: linear-gradient(to right, rgba(248,245,240,1) 40%, rgba(248,245,240,0) 80%);
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────── */
+  --font-display:  'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:     'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Font Sizes — fluid scale */
+  --text-xs:   0.6875rem;   /* 11px */
+  --text-sm:   0.8125rem;   /* 13px */
+  --text-base: 0.9375rem;   /* 15px */
+  --text-md:   1rem;        /* 16px */
+  --text-lg:   1.125rem;    /* 18px */
+  --text-xl:   1.25rem;     /* 20px */
+  --text-2xl:  1.5rem;      /* 24px */
+  --text-3xl:  1.875rem;    /* 30px */
+  --text-4xl:  2.25rem;     /* 36px */
+  --text-5xl:  3rem;        /* 48px */
+  --text-6xl:  3.75rem;     /* 60px */
+
+  /* Legacy aliases (backward compat) */
+  --font-size-xs:   var(--text-xs);
+  --font-size-sm:   var(--text-sm);
+  --font-size-base: var(--text-base);
+  --font-size-lg:   var(--text-lg);
+  --font-size-xl:   var(--text-xl);
+  --font-size-2xl:  var(--text-2xl);
+  --font-size-3xl:  var(--text-3xl);
+  --font-size-4xl:  var(--text-4xl);
+
+  /* Font Weights */
+  --font-light:    300;
+  --font-regular:  400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+  --font-extrabold:800;
+
+  /* Line Heights */
+  --leading-tight:  1.2;
+  --leading-snug:   1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed:1.75;
+
+  /* Letter Spacing */
+  --tracking-tight:  -0.03em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.12em;
+
+  /* ── SPACING ─────────────────────────────────────────────── */
+  --space-1:   0.25rem;   /* 4px  */
+  --space-2:   0.5rem;    /* 8px  */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-20:  5rem;      /* 80px */
+  --space-24:  6rem;      /* 96px */
+
+  /* Legacy aliases */
+  --space-xs:  var(--space-1);
+  --space-sm:  var(--space-2);
+  --space-md:  var(--space-4);
+  --space-lg:  var(--space-6);
+  --space-xl:  var(--space-8);
+  --space-2xl: var(--space-12);
+
+  /* ── BORDER RADIUS ──────────────────────────────────────── */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full:9999px;
+
+  /* Legacy alias */
+  --radius-xl: 20px;
+
+  /* ── SHADOWS ─────────────────────────────────────────────── */
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm:  0 2px 8px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.10), 0 4px 8px rgba(0, 0, 0, 0.05);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.06);
+  --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.14);
+  --shadow-ocean: 0 4px 20px rgba(0, 100, 148, 0.25);
+  --shadow-jade:  0 4px 20px rgba(16, 185, 129, 0.25);
+  --shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* ── ANIMATION TOKENS ───────────────────────────────────── */
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 600ms;
+
+  --ease-out:    cubic-bezier(0.0, 0.0, 0.2, 1.0);
+  --ease-in:     cubic-bezier(0.4, 0.0, 1.0, 1.0);
+  --ease-inout:  cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Composite transitions */
+  --transition-base:   all var(--duration-base) var(--ease-out);
+  --transition-fast:   all var(--duration-fast) var(--ease-out);
+  --transition-slow:   all var(--duration-slow) var(--ease-smooth);
+  --transition-bounce: all var(--duration-slow) var(--ease-bounce);
+
+  /* ── Z-INDEX SCALE ──────────────────────────────────────── */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-dropdown:100;
+  --z-sticky:  200;
+  --z-overlay: 300;
+  --z-modal:   400;
+  --z-toast:   500;
+
+  /* ── LAYOUT ─────────────────────────────────────────────── */
+  --max-width-sm:  640px;
+  --max-width-md:  768px;
+  --max-width-lg: 1024px;
+  --max-width-xl: 1200px;
+  --max-width-2xl:1440px;
+
+  --navbar-height: 68px;
+  --mobile-nav-height: 64px;
+  --content-padding-x: clamp(1rem, 4vw, 2rem);
+
+  /* Legacy color aliases — prevent breakage in old components */
+  --color-bg:          var(--color-sand);
+  --color-primary:     var(--color-ocean);
+  --color-primary-light: var(--color-ocean-light);
+  --color-secondary:   var(--color-coral);
+  --color-accent-lime: var(--color-jade-soft);
+  --color-card-bg:     var(--color-surface-glass);
+  --color-text-primary:   var(--color-ink);
+}

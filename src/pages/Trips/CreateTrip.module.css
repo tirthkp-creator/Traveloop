@@ -1,0 +1,243 @@
+/* ============================================================
+   CREATE TRIP PAGE — Traveloop 2026
+   Premium step-one of a new journey
+   ============================================================ */
+
+.container {
+  max-width: var(--max-width-lg);
+  margin: 0 auto;
+  padding: var(--space-12) var(--content-padding-x) var(--space-24);
+  animation: fadeIn var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-extrabold);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-2);
+}
+
+.header p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .formSection {
+    flex: 1;
+  }
+  
+  .previewSection {
+    width: 380px;
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-8));
+  }
+}
+
+/* ── FORM SECTION ────────────────────────────────────────── */
+.formCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-xl);
+}
+
+.formGroup {
+  margin-bottom: var(--space-8);
+}
+
+.label {
+  display: block;
+  font-size: 11px;
+  font-weight: var(--font-bold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  margin-bottom: var(--space-3);
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  outline: none;
+  transition: var(--transition-fast);
+  font-family: var(--font-body);
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--color-ocean);
+  box-shadow: 0 0 0 4px rgba(0, 100, 148, 0.1);
+}
+
+.dateRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+@media (min-width: 600px) {
+  .dateRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.uploadPlaceholder {
+  border: 2px dashed var(--color-border-medium);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-12);
+  text-align: center;
+  cursor: pointer;
+  background: var(--color-surf);
+  transition: var(--transition-fast);
+}
+
+.uploadPlaceholder:hover {
+  background: var(--color-white);
+  border-color: var(--color-ocean);
+  box-shadow: var(--shadow-sm);
+}
+
+.uploadIcon {
+  color: var(--color-ocean);
+  margin-bottom: var(--space-4);
+  opacity: 0.6;
+}
+
+.uploadText {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+
+.uploadHint {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-medium);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+/* ── PREVIEW SECTION ─────────────────────────────────────── */
+.previewSection h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.previewCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  opacity: 0.95;
+}
+
+.previewImage {
+  height: 220px;
+  background: var(--color-surf);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  gap: var(--space-2);
+}
+
+.previewImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.previewContent {
+  padding: var(--space-8);
+}
+
+.previewContent h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-extrabold);
+  color: var(--color-ink);
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--tracking-tight);
+}
+
+.previewMeta {
+  margin-bottom: var(--space-4);
+}
+
+.previewMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.previewMetaItem svg {
+  color: var(--color-ocean);
+}
+
+.previewDesc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+.emptyPreview {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  font-weight: var(--font-medium);
+}

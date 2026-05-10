@@ -1,0 +1,265 @@
+/* ============================================================
+   CITY DETAILS — Traveloop 2026
+   Premium city guide and overview
+   ============================================================ */
+
+.container {
+  max-width: var(--max-width-xl);
+  margin: 0 auto;
+  padding-bottom: var(--space-20);
+  animation: fadeIn var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HERO SECTION ────────────────────────────────────────── */
+.heroSection {
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0 0 var(--radius-3xl) var(--radius-3xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.heroImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 20, 45, 0.9) 0%,
+    rgba(0, 30, 60, 0.4) 60%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 3;
+  padding: var(--space-12) var(--space-10);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .heroContent {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.cityName {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-extrabold);
+  color: white;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-2);
+}
+
+.cityCountry {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cityCountry svg {
+  color: var(--color-ocean-light);
+}
+
+.heroActions {
+  display: flex;
+  gap: var(--space-4);
+}
+
+/* ── CONTENT LAYOUT ──────────────────────────────────────── */
+.contentLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--content-padding-x);
+}
+
+@media (min-width: 1024px) {
+  .contentLayout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .mainContent {
+    flex: 2;
+  }
+  
+  .sidePanel {
+    flex: 1;
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--space-8));
+  }
+}
+
+.section {
+  margin-bottom: var(--space-12);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.sectionTitle svg {
+  color: var(--color-ocean);
+}
+
+.aboutText {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Top Attractions */
+.attractionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 600px) {
+  .attractionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.attractionCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.attractionCard:hover {
+  border-color: var(--color-ocean-light);
+  box-shadow: var(--shadow-md);
+}
+
+.attractionIcon {
+  background: var(--color-surf);
+  color: var(--color-ocean);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attractionInfo h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin: 0 0 4px 0;
+}
+
+.attractionInfo p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
+}
+
+/* Side Panel Info Cards */
+.infoCard {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.infoCardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display);
+  font-weight: var(--font-bold);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+
+.infoCardHeader svg {
+  color: var(--color-ocean);
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.infoListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-surf);
+  font-size: var(--text-sm);
+}
+
+.infoListItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoLabel {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-size: 11px;
+}
+
+.infoValue {
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+}

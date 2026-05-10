@@ -1,0 +1,80 @@
+/* ============================================================
+   BADGE COMPONENT — Traveloop 2026
+   ============================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── STATUS VARIANTS ─────────────────────────────────────── */
+
+.visited {
+  background: var(--color-jade-soft);
+  color: var(--color-jade);
+}
+
+.planned {
+  background: var(--color-ocean-light);
+  color: var(--color-ocean);
+}
+
+.inProgress {
+  background: var(--color-amber-soft);
+  color: var(--color-amber);
+}
+
+.wishlist {
+  background: var(--color-coral-soft);
+  color: var(--color-coral);
+}
+
+.draft {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+/* ── GENERIC VARIANTS ────────────────────────────────────── */
+
+.default {
+  background: #F3F4F6;
+  color: #374151;
+}
+
+.ocean {
+  background: var(--color-ocean-light);
+  color: var(--color-ocean);
+}
+
+.success {
+  background: var(--color-jade-soft);
+  color: var(--color-jade);
+}
+
+.warning {
+  background: var(--color-amber-soft);
+  color: var(--color-amber);
+}
+
+.danger {
+  background: var(--color-coral-soft);
+  color: var(--color-coral);
+}
+
+/* ── DOT INDICATOR ────────────────────────────────────────── */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}

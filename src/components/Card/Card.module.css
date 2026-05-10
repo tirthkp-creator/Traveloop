@@ -1,0 +1,60 @@
+/* ============================================================
+   CARD COMPONENT — Traveloop 2026
+   ============================================================ */
+
+/* ── BASE ─────────────────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── VARIANTS ─────────────────────────────────────────────── */
+
+/* Glass — frosted glass effect */
+.glass {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: var(--shadow-md),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Elevated — stronger shadow */
+.elevated {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Outlined — no shadow, visible border */
+.outlined {
+  box-shadow: none;
+  border: 1.5px solid var(--color-border-medium);
+}
+
+/* Ocean tint */
+.ocean {
+  background: var(--color-surface-blue);
+  border-color: var(--color-border-ocean);
+}
+
+/* ── INTERACTIVE STATES ───────────────────────────────────── */
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(0, 100, 148, 0.12);
+}
+
+.hoverable:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}

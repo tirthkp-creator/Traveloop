@@ -1,0 +1,219 @@
+@import './styles/variables.css';
+
+/* ============================================================
+   TRAVELOOP 2026 — GLOBAL BASE STYLES
+   ============================================================ */
+
+/* ── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-sand);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY BASE ─────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
+}
+
+h1 { font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl)); font-weight: var(--font-extrabold); }
+h2 { font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl)); font-weight: var(--font-bold); }
+h3 { font-size: clamp(var(--text-xl),  3vw, var(--text-2xl)); font-weight: var(--font-semibold); }
+h4 { font-size: var(--text-xl);   font-weight: var(--font-semibold); }
+h5 { font-size: var(--text-lg);   font-weight: var(--font-medium); }
+h6 { font-size: var(--text-base); font-weight: var(--font-medium); }
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-base);
+}
+
+/* ── LINKS ──────────────────────────────────────────────── */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* ── BUTTONS BASE ───────────────────────────────────────── */
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ── IMAGES ─────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── FORMS BASE ─────────────────────────────────────────── */
+input, select, textarea {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-medium); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
+
+/* ── KEYFRAMES ──────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  50%  { transform: scale(1.2); opacity: 0.3; }
+  100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes routeDash {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes markerPop {
+  0%   { transform: scale(0) translateY(10px); opacity: 0; }
+  70%  { transform: scale(1.15) translateY(-2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* ── UTILITY CLASSES ────────────────────────────────────── */
+.container {
+  max-width: var(--max-width-xl);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+}
+
+.container-wide {
+  max-width: var(--max-width-2xl);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+}
+
+.section {
+  padding: var(--space-16) 0;
+}
+
+.section-sm {
+  padding: var(--space-10) 0;
+}
+
+/* Glass Panel */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: var(--gradient-ocean);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+.text-ink       { color: var(--color-ink); }
+.text-ocean     { color: var(--color-ocean); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary  { color: var(--color-text-tertiary); }
+
+/* Display */
+.flex         { display: flex; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col     { display: flex; flex-direction: column; }
+
+/* Animations */
+.animate-fade-up   { animation: fadeInUp var(--duration-slow) var(--ease-out) both; }
+.animate-fade-in   { animation: fadeIn var(--duration-slow) var(--ease-out) both; }
+.animate-scale-in  { animation: scaleIn var(--duration-slow) var(--ease-bounce) both; }
+
+/* Status badge colors */
+.status-visited    { background: var(--color-jade-soft);   color: var(--color-jade); }
+.status-planned    { background: var(--color-ocean-light); color: var(--color-ocean); }
+.status-inprogress { background: var(--color-amber-soft);  color: var(--color-amber); }
+.status-wishlist   { background: var(--color-coral-soft);  color: var(--color-coral); }
+.status-draft      { background: #F3F4F6;                  color: #6B7280; }
+
+/* Skeleton shimmer base */
+.skeleton {
+  background: linear-gradient(90deg, #F0F0F0 25%, #E0E0E0 50%, #F0F0F0 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* SR only (accessibility) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

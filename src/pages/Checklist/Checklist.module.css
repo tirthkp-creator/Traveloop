@@ -1,0 +1,226 @@
+/* ============================================================
+   CHECKLIST — Traveloop 2026
+   ============================================================ */
+
+.page {
+  max-width: var(--max-width-md);
+  margin: 0 auto;
+  padding: var(--space-8) var(--content-padding-x) var(--space-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeInUp var(--duration-slow) var(--ease-out) both;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.header h1 { font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl)); margin-bottom: 4px; }
+.header p  { color: var(--color-text-secondary); margin: 0; }
+
+/* ── PROGRESS RING ───────────────────────────────────────── */
+.progressRing {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ringPct {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: var(--font-extrabold);
+  color: var(--color-ink);
+}
+
+/* ── SUMMARY ─────────────────────────────────────────────── */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.summaryBar {
+  height: 8px;
+  background: var(--color-border-medium);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.summaryFill {
+  height: 100%;
+  background: var(--gradient-ocean);
+  border-radius: var(--radius-full);
+  transition: width 0.6s var(--ease-smooth);
+}
+.summaryText {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
+  margin: 0;
+}
+
+/* ── CONTROLS ────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.searchWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.searchIcon { position: absolute; left: 14px; color: var(--color-text-tertiary); pointer-events: none; }
+.searchInput {
+  width: 100%;
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  padding: 10px 16px 10px 40px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  background: var(--color-white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--color-ink);
+}
+.searchInput:focus { border-color: var(--color-ocean); box-shadow: 0 0 0 3px rgba(0,100,148,0.1); }
+
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border-medium);
+  background: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+.tab:hover { border-color: var(--color-ocean); color: var(--color-ocean); background: var(--color-ocean-light); }
+.tabActive { background: var(--color-ink); color: white; border-color: var(--color-ink); }
+.tabActive:hover { background: var(--color-ink-soft); border-color: var(--color-ink-soft); color: white; }
+
+/* ── GROUP ───────────────────────────────────────────────── */
+.listWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.group {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.groupHeader:hover { background: var(--color-surf); }
+
+.groupTitle {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+}
+
+.groupMeta { display: flex; align-items: center; gap: var(--space-3); }
+.groupCount { font-size: var(--text-sm); color: var(--color-text-tertiary); font-weight: var(--font-semibold); }
+
+.chevron { color: var(--color-text-tertiary); transition: transform 0.25s; }
+.chevronDown { transform: rotate(180deg); }
+
+/* ── ITEMS ───────────────────────────────────────────────── */
+.groupItems {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: fadeInUp 0.2s var(--ease-out) both;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 12px var(--space-4);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background 0.2s;
+}
+.checkItem:hover { background: var(--color-surf); }
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 2px solid var(--color-border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.checkboxChecked {
+  background: var(--color-jade);
+  border-color: var(--color-jade);
+  color: white;
+}
+
+.itemLabel {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-ink);
+  transition: color 0.2s, text-decoration 0.2s;
+  flex: 1;
+}
+.checkItemDone .itemLabel {
+  text-decoration: line-through;
+  color: var(--color-text-tertiary);
+}
+
+/* ── EMPTY ───────────────────────────────────────────────── */
+.empty {
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+}
