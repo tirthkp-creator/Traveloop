@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ComposableMap,
   Geographies,
@@ -7,7 +7,9 @@ import {
   Line,
   ZoomableGroup
 } from 'react-simple-maps';
+import { Loader2 } from 'lucide-react';
 import { defaultMarkers, defaultRoutes, getMapStats } from '../../data/mapMarkers';
+import { tripService, savedDestinationService } from '../../services/api';
 import styles from './TravelMap.module.css';
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
@@ -16,14 +18,14 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 const STATUS = {
   visited:    { label: 'Visited',     color: '#10B981', bg: '#D1FAE5', pulse: false },
   planned:    { label: 'Planned',     color: '#006494', bg: '#E0F2FA', pulse: true  },
-  inProgress: { label: 'In Progress', color: '#F59E0B', bg: '#FEF3C7', pulse: true  },
+  in_progress: { label: 'In Progress', color: '#F59E0B', bg: '#FEF3C7', pulse: true  },
   wishlist:   { label: 'Wishlist',    color: '#8B7CF8', bg: '#F3F0FF', pulse: false },
 };
 
 /* ── ROUTE COLORS ────────────────────────────────────────── */
 const ROUTE_COLORS = {
   visited:    '#10B981',
-  inProgress: '#F59E0B',
+  in_progress: '#F59E0B',
   planned:    '#006494',
   wishlist:   '#8B7CF8',
 };
@@ -31,23 +33,76 @@ const ROUTE_COLORS = {
 /* ── MAIN COMPONENT ─────────────────────────────────────── */
 const TravelMap = ({
   mode = 'dashboard',
-  markers = defaultMarkers,
-  routes = defaultRoutes,
   showStats = true,
   showLegend = true,
   className = '',
 }) => {
+  const [markers, setMarkers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchMapData = async () => {
+      try {
+        setLoading(true);
+        const [trips, saved] = await Promise.all([
+          tripService.getTrips(),
+          savedDestinationService.getSaved()
+        ]);
+
+        const tripMarkers = [];
+        trips.forEach(trip => {
+          if (trip.tripStops) {
+            trip.tripStops.forEach(stop => {
+              if (stop.city.latitude && stop.city.longitude) {
+                tripMarkers.push({
+                  id: stop.id,
+                  city: stop.city.name,
+                  lat: stop.city.latitude,
+                  lng: stop.city.longitude,
+                  status: trip.status // visited, planned, in_progress
+                });
+              }
+            });
+          }
+        });
+
+        const savedMarkers = saved.map(s => ({
+          id: s.id,
+          city: s.city.name,
+          lat: s.city.latitude,
+          lng: s.city.longitude,
+          status: 'wishlist'
+        })).filter(m => m.lat && m.lng);
+
+        const allMarkers = [...tripMarkers, ...savedMarkers];
+        setMarkers(allMarkers.length > 0 ? allMarkers : defaultMarkers);
+      } catch (err) {
+        console.error('Map data fetch failed:', err);
+        setMarkers(defaultMarkers);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMapData();
+  }, []);
+
   const stats = getMapStats(markers);
   const isHero    = mode === 'hero';
   const isCompact = mode === 'compact';
 
   // For react-simple-maps, coordinates are [longitude, latitude]
-  const center    = [50, 30]; // Center over Europe/Middle East
+  const center    = [20, 20]; // Adjusted center
   const zoom      = isHero ? 1.5 : isCompact ? 1 : 1.3;
 
   return (
     <div className={`${styles.mapRoot} ${styles[mode]} ${className}`} style={{ background: '#E2F1F8' }}>
       
+      {loading && (
+        <div className={styles.mapLoading}>
+          <Loader2 className={styles.spinner} />
+        </div>
+      )}
+
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{ scale: 130 }}
@@ -73,27 +128,9 @@ const TravelMap = ({
             }
           </Geographies>
 
-          {/* Route Polylines */}
-          {routes.map((route, i) => {
-            const from = markers.find(m => m.id === route.from);
-            const to   = markers.find(m => m.id === route.to);
-            if (!from || !to) return null;
-            return (
-              <Line
-                key={i}
-                from={[from.lng, from.lat]}
-                to={[to.lng, to.lat]}
-                stroke={ROUTE_COLORS[route.status] || '#006494'}
-                strokeWidth={isHero ? 1.5 : 2}
-                strokeLinecap="round"
-                strokeDasharray={route.status === 'visited' ? 'none' : '4 4'}
-              />
-            );
-          })}
-
           {/* Markers */}
           {markers.map((marker) => {
-            const cfg = STATUS[marker.status];
+            const cfg = STATUS[marker.status] || STATUS.planned;
             return (
               <Marker key={marker.id} coordinates={[marker.lng, marker.lat]}>
                 <circle r={isHero ? 4 : 5} fill={cfg.color} stroke="#FFFFFF" strokeWidth={1.5} />
@@ -120,10 +157,10 @@ const TravelMap = ({
       {showStats && !isHero && !isCompact && (
         <div className={styles.statsOverlay}>
           {[
-            { val: stats.visited,    label: 'Visited',  color: '#10B981' },
-            { val: stats.planned,    label: 'Planned',  color: '#006494' },
-            { val: stats.inProgress, label: 'Active',   color: '#F59E0B' },
-            { val: stats.wishlist,   label: 'Wishlist', color: '#8B7CF8' },
+            { val: stats.visited || 0,    label: 'Visited',  color: '#10B981' },
+            { val: stats.planned || 0,    label: 'Planned',  color: '#006494' },
+            { val: stats.in_progress || stats.inProgress || 0, label: 'Active',   color: '#F59E0B' },
+            { val: stats.wishlist || 0,   label: 'Wishlist', color: '#8B7CF8' },
           ].map((s, i, arr) => (
             <React.Fragment key={s.label}>
               <div className={styles.statItem}>

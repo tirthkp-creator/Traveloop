@@ -1,6 +1,21 @@
-# React + Vite
+# Traveloop - Personalized Travel Planning
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personalized travel planning platform where users can create trips, add city stops, assign activities, track budgets, manage packing checklists, and share itineraries.
+
+## 🚀 Recent Upgrade: Scalable PostgreSQL Architecture
+Traveloop now features a robust backend system:
+- **Relational Database**: 12+ optimized tables for complex travel data.
+- **Prisma ORM**: Type-safe database queries and migrations.
+- **REST APIs**: Full suite of endpoints for trips, itinerary, auth, and analytics.
+- **Living Travel Map**: Marker system integrated with real trip statuses.
+
+## 🛠 Tech Stack
+- **Frontend**: React + Vite + Framer Motion
+- **Backend**: Node.js + Express
+- **Database**: PostgreSQL + Prisma
+- **Auth**: JWT + Bcrypt
+
+For setup and installation, see the [Backend README](./backend/README.md).
 
 Currently, two official plugins are available:
 

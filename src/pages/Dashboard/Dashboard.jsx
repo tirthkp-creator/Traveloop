@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Plus, Compass, Map, CheckSquare, TrendingUp,
-  Calendar, MapPin, ArrowRight, Search, Wallet
+  Calendar, MapPin, ArrowRight, Search, Wallet, Loader2
 } from 'lucide-react';
 import Button from '../../components/Button/Button';
 import TravelMap from '../../components/TravelMap/TravelMap';
 import GlobalSearchBar from '../../components/SearchBar/GlobalSearchBar';
 import { dummyTrips } from '../../data/trips';
 import { dummyCities } from '../../data/cities';
+import { tripService, savedDestinationService, cityService } from '../../services/api';
 import styles from './Dashboard.module.css';
 
 const quickActions = [
@@ -20,10 +21,55 @@ const quickActions = [
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const upcomingTrip = dummyTrips.find(t => t.status === 'Upcoming');
-  const spentPct = upcomingTrip
-    ? Math.min(100, Math.round((upcomingTrip.spent / upcomingTrip.budget) * 100))
+  const [trips, setTrips] = useState([]);
+  const [saved, setSaved] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [tripsData, savedData, citiesData] = await Promise.all([
+          tripService.getTrips(),
+          savedDestinationService.getSaved(),
+          cityService.searchCities({ limit: 3 })
+        ]);
+        
+        setTrips(tripsData);
+        setSaved(savedData);
+        setRecommendations(citiesData.length > 0 ? citiesData : dummyCities.slice(0, 3));
+      } catch (err) {
+        console.error('Dashboard data fetch failed:', err);
+        setTrips(dummyTrips);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const upcomingTrip = trips.find(t => t.status === 'planned' || t.status === 'Upcoming') || (trips.length > 0 ? trips[0] : null);
+  
+  const spentPct = upcomingTrip && upcomingTrip.budget
+    ? Math.min(100, Math.round(((upcomingTrip.spent || 0) / upcomingTrip.budget.totalEstimatedCost) * 100))
     : 0;
+
+  const stats = [
+    { val: trips.filter(t => t.status === 'visited' || t.status === 'Completed').length, label: 'Places Visited', color: '#10B981', bg: '#D1FAE5' },
+    { val: trips.filter(t => t.status === 'planned' || t.status === 'Upcoming').length, label: 'Trips Planned',  color: '#006494', bg: '#E0F2FA' },
+    { val: saved.length, label: 'Wishlist Items', color: '#8B7CF8', bg: '#F3F0FF' },
+    { val: trips.filter(t => t.status === 'in_progress').length, label: 'Active Now', color: '#F59E0B', bg: '#FEF3C7' },
+  ];
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Loader2 size={40} className={styles.spinner} />
+        <p>Building your travel world...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -78,23 +124,23 @@ const Dashboard = () => {
             {upcomingTrip ? (
               <div className={styles.upcomingCard}>
                 <div className={styles.upcomingImg}>
-                  <img src={upcomingTrip.coverImage} alt={upcomingTrip.name} />
+                  <img src={upcomingTrip.coverPhoto || upcomingTrip.coverImage || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop'} alt={upcomingTrip.title} />
                   <div className={styles.upcomingOverlay} />
                   <div className={styles.upcomingBadge}>Upcoming</div>
                 </div>
                 <div className={styles.upcomingBody}>
-                  <h3 className={styles.upcomingName}>{upcomingTrip.name}</h3>
+                  <h3 className={styles.upcomingName}>{upcomingTrip.title || upcomingTrip.name}</h3>
                   <div className={styles.upcomingMeta}>
                     <span><Calendar size={14} strokeWidth={2.5} /> {new Date(upcomingTrip.startDate).toLocaleDateString()} – {new Date(upcomingTrip.endDate).toLocaleDateString()}</span>
-                    <span><MapPin size={14} strokeWidth={2.5} /> {upcomingTrip.destinations.join(', ')}</span>
+                    <span><MapPin size={14} strokeWidth={2.5} /> {upcomingTrip.tripStops ? upcomingTrip.tripStops.map(s => s.city.name).join(', ') : upcomingTrip.destinations?.join(', ')}</span>
                   </div>
                   {/* Budget mini bar */}
                   <div className={styles.miniBar}>
                     <div className={styles.miniBarFill} style={{ width: `${spentPct}%` }} />
                   </div>
                   <div className={styles.miniBarLabel}>
-                    <span>${upcomingTrip.spent.toLocaleString()} spent</span>
-                    <span>${upcomingTrip.budget.toLocaleString()} budget</span>
+                    <span>${(upcomingTrip.spent || 0).toLocaleString()} spent</span>
+                    <span>${(upcomingTrip.budget?.totalEstimatedCost || upcomingTrip.budget || 0).toLocaleString()} budget</span>
                   </div>
                   <div className={styles.upcomingActions}>
                     <Link to={`/trips/${upcomingTrip.id}/view`}>
@@ -125,7 +171,7 @@ const Dashboard = () => {
               </Link>
             </div>
             <div className={styles.cityGrid}>
-              {dummyCities.slice(0, 3).map((city) => (
+              {recommendations.slice(0, 3).map((city) => (
                 <Link to={`/cities/${city.id}`} key={city.id} className={styles.cityCard}>
                   <img src={city.imageUrl} alt={city.name} className={styles.cityImg} loading="lazy" />
                   <div className={styles.cityGrad} />
@@ -146,12 +192,7 @@ const Dashboard = () => {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Travel Stats</h2>
             <div className={styles.statsGrid}>
-              {[
-                { val: '7',  label: 'Places Visited', color: '#10B981', bg: '#D1FAE5' },
-                { val: '3',  label: 'Trips Planned',  color: '#006494', bg: '#E0F2FA' },
-                { val: '12', label: 'Routes Created', color: '#8B7CF8', bg: '#F3F0FF' },
-                { val: '1',  label: 'Active Now',     color: '#F59E0B', bg: '#FEF3C7' },
-              ].map((s) => (
+              {stats.map((s) => (
                 <div key={s.label} className={styles.statCard} style={{ background: s.bg }}>
                   <span style={{ color: s.color, fontWeight: 800, fontSize: 28, lineHeight: 1 }}>{s.val}</span>
                   <span style={{ fontSize: 11, fontWeight: 700, color: s.color, opacity: 0.8, marginTop: 4 }}>{s.label}</span>
@@ -167,14 +208,14 @@ const Dashboard = () => {
               <div className={styles.budgetWidget}>
                 <div className={styles.budgetTop}>
                   <Wallet size={18} strokeWidth={2} className={styles.budgetIcon} />
-                  <span>{upcomingTrip.name}</span>
+                  <span>{upcomingTrip.title || upcomingTrip.name}</span>
                 </div>
-                <div className={styles.budgetAmount}>${upcomingTrip.budget.toLocaleString()}</div>
+                <div className={styles.budgetAmount}>${(upcomingTrip.budget?.totalEstimatedCost || upcomingTrip.budget || 0).toLocaleString()}</div>
                 <div className={styles.budgetBar}>
                   <div className={styles.budgetFill} style={{ width: `${spentPct}%`, background: spentPct > 80 ? '#EF4444' : '#10B981' }} />
                 </div>
                 <div className={styles.budgetRow}>
-                  <span style={{ color: 'var(--color-text-secondary)', fontSize: 13 }}>Spent: ${upcomingTrip.spent.toLocaleString()}</span>
+                  <span style={{ color: 'var(--color-text-secondary)', fontSize: 13 }}>Spent: ${(upcomingTrip.spent || 0).toLocaleString()}</span>
                   <span style={{ fontWeight: 700, fontSize: 13 }}>{spentPct}% used</span>
                 </div>
                 <Link to={`/trips/${upcomingTrip.id}/budget`}>
