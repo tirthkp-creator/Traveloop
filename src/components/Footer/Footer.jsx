@@ -28,12 +28,9 @@ const Footer = () => {
           {/* Brand Column */}
           <div className={styles.brandCol}>
             <Link to="/" className={styles.logo}>
-              <div className={styles.logoMark}>
-                <Globe2 size={18} strokeWidth={2.5} />
+              <div className={styles.logoMark} style={{ background: 'transparent', width: 140, height: 32, padding: 0 }}>
+                <img src="/logo.png" alt="Traveloop Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'left center' }} />
               </div>
-              <span className={styles.logoText}>
-                Travel<span>oop</span>
-              </span>
             </Link>
             <p className={styles.tagline}>
               Plan the trip. Keep the map.

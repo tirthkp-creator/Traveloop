@@ -44,20 +44,13 @@
 }
 
 .logoMark {
-  width: 34px;
-  height: 34px;
-  background: var(--gradient-ocean);
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  box-shadow: 0 3px 10px rgba(0,100,148,0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s;
 }
 .logo:hover .logoMark {
-  transform: rotate(-6deg) scale(1.05);
-  box-shadow: 0 5px 16px rgba(0,100,148,0.4);
+  transform: scale(1.02);
 }
 
 .brandName {
